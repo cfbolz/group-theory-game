@@ -80,15 +80,20 @@ instance (K : subgroup G) : group ↥K :=
   mul_left_inv := λ a, by {cases a, rw subtype.ext, apply group.mul_left_inv}
   } 
 
+/-
 -- Defintion of normal subgroup
 class normal (K : subgroup G) :=
 (conjugate : ∀ g : G, ∀ k ∈ K, (g * k * g⁻¹) ∈ K)
+-/
+
+-- I changed my mind and think making is_normal a prop is a better idea
+def is_normal (K : subgroup G) := ∀ g : G, ∀ k ∈ K, (g * k * g⁻¹) ∈ K
 
 -- Defining cosets thats used in some lemmas
-def left_coset (g : G) (K : subgroup G) := {s : G | ∃ k ∈ K, s = g * k}
-def right_coset (g : G) (K : subgroup G) := {s : G | ∃ k ∈ K, s = k * g}
+def lcoset (g : G) (K : subgroup G) := {s : G | ∃ k ∈ K, s = g * k}
+def rcoset (g : G) (K : subgroup G) := {s : G | ∃ k ∈ K, s = k * g}
 
-attribute [reducible] left_coset right_coset
+attribute [reducible] lcoset rcoset
 
 -- Defining the the center of a group is a subgroup
 def center (G : Type) [group G] : subgroup G :=

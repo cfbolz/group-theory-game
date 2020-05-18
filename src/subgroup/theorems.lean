@@ -48,7 +48,7 @@ def Inter_subgroup (H : ι → subgroup G) : subgroup G :=
     by {rw mem_Inter at *, from mul_mem (H i) (hx i) (hy i)},
   inv_mem' := λ x hx, mem_Inter.mpr $ λ i, (H i).inv_mem $ by apply mem_Inter.mp hx }
 
-
+/- Requires rework
 -- Some equivalent definitions for normal groups from wikipedia
 -- Any two elements commute regarding the normal subgroup membership relation
 lemma in_normal_to_comm {K : subgroup G} [normal K] : ∀ g k : G, g * k ∈ K → k * g ∈ K :=
@@ -152,13 +152,7 @@ begin
     split, {use k, from ⟨hk, rfl⟩},
         {use k, from ⟨hk, rfl⟩}
 end
-
-/-
-TODO : Normal K equivalent to
-- K is a union of conjugate classes
 -/
-
--- Trivial central subgroups
 
 end subgroup
 
