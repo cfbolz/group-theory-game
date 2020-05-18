@@ -22,7 +22,8 @@ def lcoset (g : G) (K : subgroup G) := {s : G | ∃ k ∈ K, s = g * k}
 
 namespace mygroup
 
-open group set
+open group subgroup
+open set function
 
 variables {G : Type} [group G] [fintype G] (H : subgroup G) 
 
@@ -30,9 +31,23 @@ variables {G : Type} [group G] [fintype G] (H : subgroup G)
 theorem finite_subgroup : finite (H : set G) :=
 finite.of_fintype _
 
+/- Coercion from a subgroup of a finite group to a finset (this way we can 
+use finset.card on the subgroup -/
 noncomputable instance : has_coe (subgroup G) (finset G) := 
-⟨λ H, @finite.to_finset G (H : set G) (finite_subgroup H)⟩
+⟨λ H, finite.to_finset (finite_subgroup H)⟩
 
-#check (H : finset G).card
+namespace cosets
+
+/-
+lemma biject_to_coset (g : G) : ∃ f : H → lcoset g H, bijective f :=
+begin
+  use (λ h, g * h),
+end
+-/
+
+end cosets
+
+/- Theorem statement -/
+theorem Lagranges : (H : finset G).card ∣ fintype.card G := sorry
 
 end mygroup
